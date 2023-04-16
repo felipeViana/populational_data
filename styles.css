@@ -28,3 +28,7 @@ nav {
 .title {
   background: lightblue;
 }
+
+#map {
+  height: 600px;
+}
