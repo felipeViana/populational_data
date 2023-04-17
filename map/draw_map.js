@@ -5,7 +5,7 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
-fetch("./../../geometrias_bairros.json")
+fetch("./../data/geometrias_bairros.json")
   .then((r) => r.json())
   .then((json) => {
     json.features.forEach((district) => {

@@ -1,6 +1,6 @@
 const ctx = document.getElementById("myChart");
 
-fetch("./../../populacao_bairros.json")
+fetch("./../data/populacao_bairros.json")
   .then((r) => r.json())
   .then((population_list) => {
     let years = ["2000", "2002", "2004", "2006"];
