@@ -3,8 +3,6 @@ const ctx = document.getElementById("myChart");
 fetch("./../../populacao_bairros.json")
   .then((r) => r.json())
   .then((population_list) => {
-    console.log(population_list);
-
     let years = ["2000", "2002", "2004", "2006"];
     let populations = {
       1: [],
@@ -12,7 +10,7 @@ fetch("./../../populacao_bairros.json")
       3: [],
       4: [],
     };
-    let bairros_names = [
+    let district_names = [
       "Jd. Colinas",
       "Jd. das Industrias",
       "Jd. Alvorada",
@@ -29,22 +27,22 @@ fetch("./../../populacao_bairros.json")
         labels: years,
         datasets: [
           {
-            label: bairros_names["0"],
+            label: district_names["0"],
             data: populations["1"],
             borderWidth: 1,
           },
           {
-            label: bairros_names["1"],
+            label: district_names["1"],
             data: populations["2"],
             borderWidth: 1,
           },
           {
-            label: bairros_names["2"],
+            label: district_names["2"],
             data: populations["3"],
             borderWidth: 1,
           },
           {
-            label: bairros_names["3"],
+            label: district_names["3"],
             data: populations["4"],
             borderWidth: 1,
           },
