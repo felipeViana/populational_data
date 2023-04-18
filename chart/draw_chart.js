@@ -1,11 +1,5 @@
 function drawChart(ctx, chart_json) {
   let years = ["2000", "2002", "2004", "2006"];
-  let populations = {
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-  };
   let district_names = [
     "Jd. Colinas",
     "Jd. das Industrias",
@@ -13,7 +7,12 @@ function drawChart(ctx, chart_json) {
     "Pq. Res. Aquarius",
   ];
 
+  let populations = {};
+
   chart_json.forEach((element) => {
+    if (!populations[element["id_geometria"]]) {
+      populations[element["id_geometria"]] = [];
+    }
     populations[element["id_geometria"]].push(element.populacao);
   });
 
