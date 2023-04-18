@@ -1,47 +1,46 @@
+function getDistrictNames() {
+  let map_json = JSON.parse(localStorage.getItem("map_json"));
+
+  return map_json.features.map((feature) => {
+    return feature.properties.name;
+  });
+}
+
 function drawChart(ctx, chart_json) {
-  let years = ["2000", "2002", "2004", "2006"];
-  let district_names = [
-    "Jd. Colinas",
-    "Jd. das Industrias",
-    "Jd. Alvorada",
-    "Pq. Res. Aquarius",
-  ];
+  let years = [];
+  let district_names = getDistrictNames();
 
   let populations = {};
-
   chart_json.forEach((element) => {
-    if (!populations[element["id_geometria"]]) {
-      populations[element["id_geometria"]] = [];
+    // using -1 to turn the index 0 based
+    // since at json it comes on the form 1, 2, 3, ..
+    let id = element["id_geometria"] - 1;
+
+    if (!populations[id]) {
+      populations[id] = [];
     }
-    populations[element["id_geometria"]].push(element.populacao);
+    populations[id].push(element.populacao);
+
+    // populate years array with available years from json
+    if (!years.includes(element["ano"])) {
+      years.push(element["ano"]);
+    }
   });
+
+  let values = [];
+  for (let index = 0; index < Object.keys(populations).length; index++) {
+    values.push({
+      label: district_names[index],
+      data: populations[index],
+      borderWidth: 1,
+    });
+  }
 
   new Chart(ctx, {
     type: "bar",
     data: {
       labels: years,
-      datasets: [
-        {
-          label: district_names["0"],
-          data: populations["1"],
-          borderWidth: 1,
-        },
-        {
-          label: district_names["1"],
-          data: populations["2"],
-          borderWidth: 1,
-        },
-        {
-          label: district_names["2"],
-          data: populations["3"],
-          borderWidth: 1,
-        },
-        {
-          label: district_names["3"],
-          data: populations["4"],
-          borderWidth: 1,
-        },
-      ],
+      datasets: values,
     },
     options: {
       scales: {
@@ -55,6 +54,7 @@ function drawChart(ctx, chart_json) {
 
 const ctx = document.getElementById("myChart");
 
+// fetch chart json
 if (localStorage.getItem("chart_json") === null) {
   console.log("going to fetch chart data ..");
 
@@ -62,8 +62,25 @@ if (localStorage.getItem("chart_json") === null) {
     .then((r) => r.json())
     .then((json) => {
       localStorage.setItem("chart_json", JSON.stringify(json));
-      drawChart(ctx, json);
+
+      // fetch map json to get info about districts
+      if (localStorage.getItem("map_json") === null) {
+        console.log("going to fetch map data ..");
+
+        fetch("./../data/geometrias_bairros.json")
+          .then((r) => r.json())
+          .then((json) => {
+            localStorage.setItem("map_json", JSON.stringify(json));
+          })
+          .then(() => {
+            drawChart(ctx, json);
+          });
+      } else {
+        console.log("map data already fetched");
+        drawChart(ctx, json);
+      }
     });
+  // TODO: handle fetch error
 } else {
   console.log("chart data already fetched");
 
