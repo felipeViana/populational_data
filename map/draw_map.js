@@ -11,7 +11,8 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 // fetch data and draw features from geoJSON
 if (localStorage.getItem("map_json") === null) {
-  console.log("going to fetch data ..");
+  console.log("going to fetch map data ..");
+
   fetch("./../data/geometrias_bairros.json")
     .then((r) => r.json())
     .then((json) => {
@@ -20,7 +21,8 @@ if (localStorage.getItem("map_json") === null) {
     });
   // TODO: handle fetch error
 } else {
-  console.log("data already fetched");
+  console.log("map data already fetched");
+
   let map_json = JSON.parse(localStorage.getItem("map_json"));
   L.geoJSON(map_json).addTo(map);
 }
