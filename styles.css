@@ -33,7 +33,8 @@ a {
   height: 600px;
 }
 
-#map_error {
+#map_error,
+#chart_error {
   color: red;
   justify-content: center;
   display: none;

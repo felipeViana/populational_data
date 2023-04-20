@@ -76,11 +76,21 @@ if (localStorage.getItem("chart_json") === null) {
           })
           .then(() => {
             drawChart(ctx, json);
+          })
+          .catch((rejected) => {
+            console.log(rejected);
+            let errorTag = document.getElementById("chart_error");
+            errorTag.style.display = "flex";
           });
       } else {
         console.log("map data already fetched");
         drawChart(ctx, json);
       }
+    })
+    .catch((rejected) => {
+      console.log(rejected);
+      let errorTag = document.getElementById("chart_error");
+      errorTag.style.display = "flex";
     });
   // TODO: handle fetch error
 } else {
