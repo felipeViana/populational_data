@@ -57,7 +57,10 @@ function drawChart(ctx, chart_json) {
 const ctx = document.getElementById("myChart");
 
 // fetch chart json
-if (localStorage.getItem("chart_json") === null) {
+if (
+  localStorage.getItem("chart_json") === null ||
+  localStorage.getItem("map_json") === null
+) {
   console.log("going to fetch chart data ..");
 
   fetch("./../data/populacao_bairros.json")
