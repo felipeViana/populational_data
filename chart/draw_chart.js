@@ -95,7 +95,6 @@ if (
       let errorTag = document.getElementById("chart_error");
       errorTag.style.display = "flex";
     });
-  // TODO: handle fetch error
 } else {
   console.log("chart data already fetched");
 
