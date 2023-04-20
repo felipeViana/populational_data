@@ -1,5 +1,4 @@
 // create map object
-// TODO: get center of coordinates
 let map = L.map("map").setView([-23.22, -45.91], 13);
 
 // add tileLayer to map
@@ -18,8 +17,12 @@ if (localStorage.getItem("map_json") === null) {
     .then((json) => {
       localStorage.setItem("map_json", JSON.stringify(json));
       L.geoJSON(json).addTo(map);
+    })
+    .catch((rejected) => {
+      console.log(rejected);
+      let errorTag = document.getElementById('map_error')
+      errorTag.style.display = 'flex'
     });
-  // TODO: handle fetch error
 } else {
   console.log("map data already fetched");
 

@@ -1,4 +1,6 @@
 function getDistrictNames() {
+  // map_json is guaranteed to be in localStorage
+  // because we fetch it before calling this method
   let map_json = JSON.parse(localStorage.getItem("map_json"));
 
   return map_json.features.map((feature) => {

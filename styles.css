@@ -32,3 +32,9 @@ a {
 #map {
   height: 600px;
 }
+
+#map_error {
+  color: red;
+  justify-content: center;
+  display: none;
+}
